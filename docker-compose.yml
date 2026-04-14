@@ -1,0 +1,55 @@
+services:
+  backend:
+    build: ./backend
+    container_name: aca-backend
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - JWT_SECRET=dev_secret_change_me
+      - DB_FILE=/data/db.sqlite
+      - RUNNER_URL=http://runner:5001
+      - SUBMISSIONS_DIR=/data/submissions
+      - RESULTS_DIR=/data/results
+      - TASKS_DIR=/tasks
+    volumes:
+      - ./backend/data:/data
+      - ./tasks:/tasks:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - runner
+
+  runner:
+    build: ./runner
+    container_name: aca-runner
+    environment:
+      - PORT=5001
+      - BACKEND_URL=http://backend:3000
+      - SUBMISSIONS_DIR=/data/submissions
+      - RESULTS_DIR=/data/results
+      - TASKS_DIR=/tasks
+      - SUPPORTED_LANGUAGES=python
+    volumes:
+      - ./backend/data:/data
+      - ./tasks:/tasks:ro
+    ports:
+      - "5001:5001"
+
+  frontend:
+    build: ./frontend
+    container_name: aca-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+networks:
+  default:
+    name: aca-net
+
+
+
+
+
+
+

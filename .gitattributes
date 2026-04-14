@@ -1,0 +1,23 @@
+# Ensure shell scripts always use LF line endings (for Linux compatibility)
+*.sh text eol=lf
+
+# Ensure Python files use LF
+*.py text eol=lf
+
+# Node.js files can use auto (but LF is preferred)
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+
+# Configuration files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+
+# Other text files
+*.md text eol=lf
+*.txt text eol=lf
+
+# Windows files
+*.bat text eol=crlf
+*.ps1 text eol=crlf

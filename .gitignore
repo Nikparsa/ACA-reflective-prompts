@@ -1,0 +1,29 @@
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+frontend/dist/
+
+# Python / Runner
+__pycache__/
+*.pyc
+.venv/
+runner/.venv/
+
+# Build & artifacts
+dist/
+*.zip
+*.log
+coverage/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Misc data
+backend/data/results/
+backend/data/submissions/
+solution/
+
