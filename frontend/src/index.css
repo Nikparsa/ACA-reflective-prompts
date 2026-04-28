@@ -525,9 +525,9 @@ textarea:focus {
 }
 
 .modal-card-wide {
-  width: min(640px, 95vw);
-  max-height: 90vh;
-  overflow-y: auto;
+  width: min(1120px, 96vw);
+  max-height: 94vh;
+  overflow: hidden;
 }
 
 .modal-header {
@@ -551,7 +551,17 @@ textarea:focus {
 }
 
 .modal-body {
-  padding: 1.5rem;
+  padding: 1.1rem 1.25rem;
+}
+
+.modal-body-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(360px, 1fr);
+  gap: 1rem;
+}
+
+.modal-column {
+  min-width: 0;
 }
 
 .modal-form {
@@ -600,7 +610,7 @@ textarea:focus {
 }
 
 .submission-feedback {
-  margin: 1rem 0;
+  margin: 0.75rem 0;
 }
 .submission-feedback h4 {
   margin: 0 0 0.5rem 0;
@@ -610,9 +620,13 @@ textarea:focus {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 1rem;
-  font-size: 0.85rem;
+  padding: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  max-height: 240px;
+  margin: 0;
   overflow-x: auto;
+  overflow-y: auto;
   white-space: pre-wrap;
 }
 
@@ -633,6 +647,14 @@ textarea:focus {
   display: grid;
   gap: 1rem;
 }
+.reflection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+}
+.reflection-form .full-width {
+  grid-column: 1 / -1;
+}
 .reflection-form label {
   display: grid;
   gap: 0.35rem;
@@ -650,10 +672,32 @@ textarea:focus {
   padding: 0;
   border: none;
 }
+.reflection-form-compact {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+.reflection-form-compact h4 {
+  margin-bottom: 0.35rem;
+}
+.reflection-form-compact form {
+  gap: 0.7rem;
+}
+.reflection-form-compact label {
+  gap: 0.2rem;
+  font-size: 0.95rem;
+}
+.reflection-form-compact textarea,
+.reflection-form-compact select {
+  padding: 0.45rem 0.65rem;
+}
+.reflection-form-compact .modal-actions {
+  margin-top: 0.2rem;
+}
 
 .reflection-summary {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem;
   background: #f8fafc;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -662,12 +706,69 @@ textarea:focus {
   margin: 0 0 0.75rem 0;
 }
 .reflection-summary p {
-  margin: 0.4rem 0;
+  margin: 0.3rem 0;
+}
+.likert-scale-card {
+  margin: 0.65rem 0;
+  padding: 0.65rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+.likert-scale-title {
+  margin: 0 0 0.45rem 0;
+}
+.likert-scale-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+.likert-scale-step {
+  border: 1px solid #cbd5e1;
+  border-bottom: 4px solid var(--scale-color);
+  border-radius: 8px;
+  background: #f8fafc;
+  display: grid;
+  justify-items: center;
+  gap: 0.1rem;
+  padding: 0.35rem 0.25rem;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.likert-scale-step.active {
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: var(--scale-color);
+  background: #ffffff;
+}
+.likert-scale-number {
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.likert-scale-label {
+  font-size: 0.65rem;
+  text-align: center;
+  line-height: 1.2;
+}
+.teacher-feedback-summary {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 10px;
+}
+.teacher-feedback-summary h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+}
+.teacher-feedback-summary p {
+  margin: 0.35rem 0;
 }
 
 .reflection-assessment {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 0.75rem;
+  padding: 0.85rem;
   background: #f0fdf4;
   border-radius: 12px;
   border: 1px solid #bbf7d0;
@@ -677,7 +778,7 @@ textarea:focus {
 }
 .reflection-assessment label {
   display: block;
-  margin: 0.75rem 0;
+  margin: 0.55rem 0;
 }
 .reflection-assessment select,
 .reflection-assessment textarea {
@@ -688,7 +789,7 @@ textarea:focus {
   padding: 0.5rem;
 }
 .reflection-assessment button {
-  margin-top: 0.75rem;
+  margin-top: 0.55rem;
 }
 
 .reflection-missing {
@@ -1004,5 +1105,19 @@ textarea:focus {
     grid-template-areas:
       "assignment assignment"
       "date status";
+  }
+
+  .reflection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-card-wide {
+    width: min(760px, 95vw);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-body-grid {
+    grid-template-columns: 1fr;
   }
 }

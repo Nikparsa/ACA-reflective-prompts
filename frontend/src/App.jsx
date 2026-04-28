@@ -11,11 +11,11 @@ const NAV_ITEMS = [
 ];
 
 const GRADE_BANDS = [
-  { min: 90, label: 'Sehr gut', className: 'status-grade-excellent' },
-  { min: 80, label: 'Gut', className: 'status-grade-good' },
-  { min: 65, label: 'Befriedigend', className: 'status-grade-satisfactory' },
-  { min: 50, label: 'Genügend', className: 'status-grade-sufficient' },
-  { min: 0, label: 'Nicht genügend', className: 'status-grade-insufficient' }
+  { min: 90, label: 'Excellent', className: 'status-grade-excellent' },
+  { min: 80, label: 'Good', className: 'status-grade-good' },
+  { min: 65, label: 'Satisfactory', className: 'status-grade-satisfactory' },
+  { min: 50, label: 'Sufficient', className: 'status-grade-sufficient' },
+  { min: 0, label: 'Insufficient', className: 'status-grade-insufficient' }
 ];
 
 function getGradeInfo(score) {
@@ -35,11 +35,11 @@ function getGradeInfo(score) {
 
 function getSubmissionStatusInfo(submission) {
   if (!submission) {
-    return { label: 'Unbekannt', className: 'status-default' };
+    return { label: 'Unknown', className: 'status-default' };
   }
 
   if (submission.status === 'queued' || submission.status === 'processing') {
-    return { label: 'In Bewertung', className: 'status-queued' };
+    return { label: 'In review', className: 'status-queued' };
   }
 
   // If status is 'completed' and score exists, show grade
@@ -48,12 +48,12 @@ function getSubmissionStatusInfo(submission) {
     if (gradeInfo) {
       return gradeInfo;
     }
-    // If completed but no score yet, show "In Bewertung"
-    return { label: 'In Bewertung', className: 'status-queued' };
+    // If completed but no score yet, show "In review"
+    return { label: 'In review', className: 'status-queued' };
   }
 
   // For failed status, check if we have a score (partial completion)
-  // IMPORTANT: Score 0 is valid and should show grade, not just "Fehlgeschlagen"
+  // IMPORTANT: Score 0 is valid and should show grade, not just "Failed"
   if (submission.status === 'failed') {
     // Check if score exists (can be 0, which is valid)
     if (submission.score !== undefined && submission.score !== null) {
@@ -62,8 +62,8 @@ function getSubmissionStatusInfo(submission) {
         return gradeInfo;
       }
     }
-    // Only show "Fehlgeschlagen" if no score at all
-    return { label: 'Fehlgeschlagen', className: 'status-grade-insufficient' };
+    // Only show "Failed" if no score at all
+    return { label: 'Failed', className: 'status-grade-insufficient' };
   }
 
   // Check for grade info for any other status
@@ -75,10 +75,10 @@ function getSubmissionStatusInfo(submission) {
   // Default: show status as-is
   if (submission.status) {
     const statusLabels = {
-      'queued': 'In Bewertung',
-      'processing': 'In Bewertung',
-      'completed': 'Abgeschlossen',
-      'failed': 'Fehlgeschlagen'
+      'queued': 'In review',
+      'processing': 'In review',
+      'completed': 'Completed',
+      'failed': 'Failed'
     };
     return { 
       label: statusLabels[submission.status] || submission.status, 
@@ -86,7 +86,7 @@ function getSubmissionStatusInfo(submission) {
     };
   }
 
-  return { label: 'Unbekannt', className: 'status-default' };
+  return { label: 'Unknown', className: 'status-default' };
 }
 
 function App() {
@@ -226,7 +226,7 @@ function App() {
     setShowCreateAssignment(false);
     setActiveSection('assignments');
   };
-
+// Step 2: Frontend sends file to backend
   const submitAssignment = async (assignmentId, file) => {
     setLoading(true);
     setStatusMessage(null);
@@ -317,6 +317,16 @@ function App() {
     }
   };
 
+  const cancelSubmissionWithReflection = async (submissionId) => {
+    await axios.delete(`/submissions/${submissionId}/cancel`);
+    const submissionsResponse = await axios.get('/submissions').catch(() => ({ data: [] }));
+    setSubmissions(submissionsResponse.data || []);
+    setStatusMessage({
+      type: 'info',
+      text: 'Submission was closed and removed. It is not visible in dashboards.'
+    });
+  };
+
 
   if (!user) {
     return (
@@ -358,6 +368,7 @@ function App() {
             const res = await axios.post('/reflections', data);
             return res.data;
           }}
+          onCancelPendingSubmission={cancelSubmissionWithReflection}
         />
       )}
 
@@ -631,11 +642,14 @@ function AssignmentsSection({
   user,
   onCreateAssignment,
   submissions,
-  onSubmitReflection
+  onSubmitReflection,
+  onCancelPendingSubmission
 }) {
   const [file, setFile] = useState(null);
   const [localMessage, setLocalMessage] = useState(null);
   const [pendingReflection, setPendingReflection] = useState(null);
+  const [showCloseConfirm, setShowCloseConfirm] = useState(false);
+  const [closingReflection, setClosingReflection] = useState(false);
 
   useEffect(() => {
     if (!selectedAssignment && assignments.length) {
@@ -648,7 +662,7 @@ function AssignmentsSection({
     ? submissions.filter(s => s.assignmentId === selectedAssignment.id).length
     : 0;
   const canSubmit = submissionCount < 2;
-
+// Step 1: Student clicks Submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!file || !selectedAssignment) {
@@ -670,6 +684,34 @@ function AssignmentsSection({
       }
     } else {
       setLocalMessage({ type: 'error', text: result.error });
+    }
+  };
+
+  const requestCloseReflection = () => {
+    if (!pendingReflection) return;
+    setShowCloseConfirm(true);
+  };
+
+  const keepReflectionOpen = () => {
+    setShowCloseConfirm(false);
+  };
+
+  const confirmCloseReflection = async () => {
+    if (!pendingReflection || !onCancelPendingSubmission) return;
+    setClosingReflection(true);
+    try {
+      await onCancelPendingSubmission(pendingReflection.submissionId);
+      setPendingReflection(null);
+      setShowCloseConfirm(false);
+      setLocalMessage(null);
+      setFile(null);
+    } catch (error) {
+      setLocalMessage({
+        type: 'error',
+        text: error.response?.data?.error || 'Failed to close and remove submission.'
+      });
+    } finally {
+      setClosingReflection(false);
     }
   };
 
@@ -773,23 +815,45 @@ function AssignmentsSection({
         )}
       </div>
       )}
-
+      {/* Step 4: Open the required Reflection modal after a successful submission */}
       {pendingReflection && onSubmitReflection && (
-        <div className="modal-backdrop" onClick={() => alert('Please complete the reflection to close.')}>
+        <div className="modal-backdrop" onClick={requestCloseReflection}>
           <div className="modal-card modal-card-wide" onClick={(e) => e.stopPropagation()}>
             <header className="modal-header">
               <h3>Reflection (required)</h3>
-              <button type="button" onClick={() => alert('Please complete the reflection to close.')} aria-label="Close modal">×</button>
+              <button type="button" onClick={requestCloseReflection} aria-label="Close modal">×</button>
             </header>
             <div className="modal-body">
               <ReflectionForm
                 attemptNumber={submissions.filter((s) => s.assignmentId === pendingReflection.assignmentId).length}
+                compact
                 onSubmit={async (formData) => {
                   await onSubmitReflection({ submissionId: pendingReflection.submissionId, assignmentId: pendingReflection.assignmentId, ...formData });
                   setPendingReflection(null);
+                  setShowCloseConfirm(false);
                 }}
                 onCancel={() => setPendingReflection(null)}
               />
+            </div>
+          </div>
+        </div>
+      )}
+      {pendingReflection && showCloseConfirm && (
+        <div className="modal-backdrop" onClick={keepReflectionOpen}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <header className="modal-header">
+              <h3>Close reflection form?</h3>
+            </header>
+            <div className="modal-body">
+              <p>If you close this form, submission will not be completed and will not appear in student or teacher dashboards.</p>
+              <div className="modal-actions">
+                <SecondaryButton type="button" onClick={keepReflectionOpen} disabled={closingReflection}>
+                  Cancel
+                </SecondaryButton>
+                <PrimaryButton type="button" onClick={confirmCloseReflection} disabled={closingReflection}>
+                  {closingReflection ? 'Closing…' : 'Close'}
+                </PrimaryButton>
+              </div>
             </div>
           </div>
         </div>
@@ -907,36 +971,40 @@ function SubmissionDetailModal({ submission, assignmentTitle, detailData, loadin
           <h3>Submission: {assignmentTitle}</h3>
           <button type="button" onClick={onClose} aria-label="Close modal">×</button>
         </header>
-        <div className="modal-body">
+        <div className="modal-body modal-body-grid">
           {loading ? (
             <p>Loading…</p>
           ) : (
             <>
-              <div className="submission-detail-info">
-                <p><strong>File:</strong> {submission.filename}</p>
-                <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
-                <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
-                {(submission.score !== undefined && submission.score !== null) && (
-                  <p><strong>Score:</strong> {Math.round((submission.score || 0) * 100)}%</p>
-                )}
-              </div>
-              {detailData?.result?.feedback && (
-                <div className="submission-feedback">
-                  <h4>Test feedback</h4>
-                  <pre className="feedback-pre">{detailData.result.feedback}</pre>
+              <section className="modal-column">
+                <div className="submission-detail-info">
+                  <p><strong>File:</strong> {submission.filename}</p>
+                  <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
+                  <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
+                  {(submission.score !== undefined && submission.score !== null) && (
+                    <p><strong>Score:</strong> {Math.round((submission.score || 0) * 100)}%</p>
+                  )}
                 </div>
-              )}
-              {isGraded && (
-                reflection ? (
-                  <ReflectionSummary reflection={reflection} />
-                ) : (
-                  <ReflectionForm
-                    attemptNumber={attemptNumber}
-                    onSubmit={onSubmitReflection}
-                    onCancel={onClose}
-                  />
-                )
-              )}
+                {detailData?.result?.feedback && (
+                  <div className="submission-feedback">
+                    <h4>Test feedback</h4>
+                    <pre className="feedback-pre">{detailData.result.feedback}</pre>
+                  </div>
+                )}
+              </section>
+              <section className="modal-column">
+                {isGraded && (
+                  reflection ? (
+                    <ReflectionSummary reflection={reflection} showTeacherFeedback compact />
+                  ) : (
+                    <ReflectionForm
+                      attemptNumber={attemptNumber}
+                      onSubmit={onSubmitReflection}
+                      onCancel={onClose}
+                    />
+                  )
+                )}
+              </section>
             </>
           )}
         </div>
@@ -948,9 +1016,9 @@ function SubmissionDetailModal({ submission, assignmentTitle, detailData, loadin
 const REFLECTION_REQUIRED_FIELDS_ATTEMPT1 = [
   { key: 'learnedText', label: 'What did you learn from this exercise?' },
   { key: 'difficultiesText', label: 'What difficulties did you encounter?' },
-  { key: 'wroteCodeMyself', label: 'I wrote the code primarily myself.' },
-  { key: 'aiToolUsage', label: 'I used AI tools while working on this task.' },
-  { key: 'reflectedOnApproach', label: 'I reflected on my approach before and/or after solving the task.' }
+  { key: 'wroteCodeMyself', label: 'You wrote the code primarily yourself.' },
+  { key: 'aiToolUsage', label: 'You used AI tools while working on this task.' },
+  { key: 'reflectedOnApproach', label: 'You thought about your problem-solving strategy while working on this task.' }
 ];
 
 const REFLECTION_REQUIRED_FIELDS_ATTEMPT2 = [
@@ -959,7 +1027,7 @@ const REFLECTION_REQUIRED_FIELDS_ATTEMPT2 = [
   { key: 'revisionNextIterationText', label: 'What you would still change with one more iteration' }
 ];
 
-function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1 }) {
+function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1, compact = false }) {
   const isSecondAttempt = attemptNumber >= 2;
 
   const [learnedText, setLearnedText] = useState('');
@@ -977,7 +1045,7 @@ function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1 }) {
   const [submitting, setSubmitting] = useState(false);
 
   const getValuesAttempt1 = () => ({ learnedText, difficultiesText, wroteCodeMyself, aiToolUsage, reflectedOnApproach });
-
+// Step 4.1: check if all required field are filled.
   const validateAttempt1 = () => {
     const vals = getValuesAttempt1();
     return REFLECTION_REQUIRED_FIELDS_ATTEMPT1.filter((f) => !vals[f.key] || String(vals[f.key]).trim() === '');
@@ -989,7 +1057,8 @@ function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1 }) {
   };
 
   const validate = () => (isSecondAttempt ? validateAttempt2() : validateAttempt1());
-
+  const hasMissingRequired = validate().length > 0;
+  // Step 4.2: Validate required reflection answers before submitting.
   const handleSubmit = async (e) => {
     e.preventDefault();
     const missing = validate();
@@ -1060,19 +1129,7 @@ function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1 }) {
             />
           </label>
           <div className="modal-actions">
-            <SecondaryButton
-              type="button"
-              onClick={() => {
-                if (validate().length > 0) {
-                  alert('Reflection is required. Please answer all questions before closing.');
-                  return;
-                }
-                onCancel();
-              }}
-            >
-              Cancel
-            </SecondaryButton>
-            <PrimaryButton type="submit" disabled={submitting}>{submitting ? 'Saving…' : 'Submit reflection'}</PrimaryButton>
+            <PrimaryButton type="submit" disabled={submitting || hasMissingRequired}>{submitting ? 'Saving…' : 'Submit reflection'}</PrimaryButton>
           </div>
         </form>
       </div>
@@ -1080,95 +1137,148 @@ function ReflectionForm({ onSubmit, onCancel, attemptNumber = 1 }) {
   }
 
   return (
-    <div className="reflection-form">
+    <div className={`reflection-form ${compact ? 'reflection-form-compact' : ''}`}>
       <h4>Reflection (ACA-Reflection-Extension)</h4>
-      <p className="reflection-intro">Please reflect on your learning process for this task. All questions are required. Your responses support research on self-directed learning.</p>
+      {!compact && (
+        <p className="reflection-intro">Please reflect on your learning process for this task. All questions are required. Your responses support research on self-directed learning.</p>
+      )}
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="full-width">
           What did you learn from this exercise?
-          <textarea rows={3} value={learnedText} onChange={(e) => setLearnedText(e.target.value)} placeholder="Describe what you learned..." />
+          <textarea rows={compact ? 2 : 3} value={learnedText} onChange={(e) => setLearnedText(e.target.value)} placeholder="Describe what you learned..." />
         </label>
-        <label>
+        <label className="full-width">
           What difficulties did you encounter while solving the task?
-          <textarea rows={3} value={difficultiesText} onChange={(e) => setDifficultiesText(e.target.value)} placeholder="Describe any challenges..." />
+          <textarea rows={compact ? 2 : 3} value={difficultiesText} onChange={(e) => setDifficultiesText(e.target.value)} placeholder="Describe any challenges..." />
         </label>
-        <label>
-          I wrote the code primarily myself. (1 = Strongly disagree … 5 = Strongly agree)
-          <select value={wroteCodeMyself} onChange={(e) => setWroteCodeMyself(e.target.value)}>
-            <option value="">— Select —</option>
-            <option value="1">1 - Strongly disagree</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5 - Strongly agree</option>
-          </select>
-        </label>
-        <label>
-          I used AI tools (e.g., ChatGPT) while working on this task.
-          <select value={aiToolUsage} onChange={(e) => setAiToolUsage(e.target.value)}>
-            <option value="">— Select —</option>
-            <option value="Never">Never</option>
-            <option value="Sometimes">Sometimes</option>
-            <option value="Often">Often</option>
-            <option value="Always">Always</option>
-          </select>
-        </label>
-        <label>
-          If I used AI-generated code, I ensured that I understood it before submitting. (1 = Strongly disagree … 5 = Strongly agree)
-          <select value={understoodGeneratedCode} onChange={(e) => setUnderstoodGeneratedCode(e.target.value)}>
-            <option value="">— Select —</option>
-            <option value="1">1 - Strongly disagree</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5 - Strongly agree</option>
-          </select>
-        </label>
-        <label>
-          How much of your final solution resulted from your own attempts vs external assistance? ({ownVsExternalPercent}% own work)
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={ownVsExternalPercent}
-            onChange={(e) => setOwnVsExternalPercent(parseInt(e.target.value, 10))}
-          />
-        </label>
-        <label>
-          I reflected on my approach before and/or after solving the task. (1 = Strongly disagree … 5 = Strongly agree)
-          <select value={reflectedOnApproach} onChange={(e) => setReflectedOnApproach(e.target.value)}>
-            <option value="">— Select —</option>
-            <option value="1">1 - Strongly disagree</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5 - Strongly agree</option>
-          </select>
-        </label>
+        <div className="reflection-grid">
+          <label>
+            I wrote the code mostly myself (1-5)
+            <select value={wroteCodeMyself} onChange={(e) => setWroteCodeMyself(e.target.value)}>
+              <option value="">— Select —</option>
+              <option value="1">1 - Strongly disagree</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 - Strongly agree</option>
+            </select>
+          </label>
+          <label>
+            AI tool usage during this task
+            <select value={aiToolUsage} onChange={(e) => setAiToolUsage(e.target.value)}>
+              <option value="">— Select —</option>
+              <option value="Never">Never</option>
+              <option value="Sometimes">Sometimes</option>
+              <option value="Often">Often</option>
+              <option value="Always">Always</option>
+            </select>
+          </label>
+          <label>
+            I understood AI-generated code before submit (1-5)
+            <select value={understoodGeneratedCode} onChange={(e) => setUnderstoodGeneratedCode(e.target.value)}>
+              <option value="">— Select —</option>
+              <option value="1">1 - Strongly disagree</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 - Strongly agree</option>
+            </select>
+          </label>
+          <label>
+            I reflected on my problem-solving strategy (1-5)
+            <select value={reflectedOnApproach} onChange={(e) => setReflectedOnApproach(e.target.value)}>
+              <option value="">— Select —</option>
+              <option value="1">1 - Strongly disagree</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 - Strongly agree</option>
+            </select>
+          </label>
+          <label className="full-width">
+            Own work vs external help: {ownVsExternalPercent}% own work
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={ownVsExternalPercent}
+              onChange={(e) => setOwnVsExternalPercent(parseInt(e.target.value, 10))}
+            />
+          </label>
+        </div>
         <div className="modal-actions">
-          <SecondaryButton
-            type="button"
-            onClick={() => {
-              if (validate().length > 0) {
-                alert('Reflection is required. Please answer all questions before closing.');
-                return;
-              }
-              onCancel();
-            }}
-          >
-            Cancel
-          </SecondaryButton>
-          <PrimaryButton type="submit" disabled={submitting}>{submitting ? 'Saving…' : 'Submit reflection'}</PrimaryButton>
+          <PrimaryButton type="submit" disabled={submitting || hasMissingRequired}>{submitting ? 'Saving…' : 'Submit reflection'}</PrimaryButton>
         </div>
       </form>
     </div>
   );
 }
 
-function ReflectionSummary({ reflection }) {
-  const likertLabels = { 1: 'Strongly disagree', 2: '2', 3: '3', 4: '4', 5: 'Strongly agree' };
+function ReflectionSummary({ reflection, showTeacherFeedback = false, compact = false }) {
+  const likertLabels = { 1: 'Strongly disagree', 2: 'Disagree', 3: 'Neutral', 4: 'Agree', 5: 'Strongly agree' };
+  const likertScale = [
+    { value: 1, label: 'Strongly disagree', color: '#ef4444' },
+    { value: 2, label: 'Disagree', color: '#f97316' },
+    { value: 3, label: 'Neutral', color: '#eab308' },
+    { value: 4, label: 'Agree', color: '#84cc16' },
+    { value: 5, label: 'Strongly agree', color: '#22c55e' }
+  ];
+  const formatLikert = (value) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return String(value);
+    const label = likertLabels[numeric];
+    return label ? `${numeric} - ${label}` : String(value);
+  };
+  const renderLikertScale = (title, value) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return null;
+    if (compact) {
+      return <p><strong>{title}:</strong> {formatLikert(numeric)}</p>;
+    }
+    return (
+      <div className="likert-scale-card">
+        <p className="likert-scale-title"><strong>{title}:</strong> {formatLikert(numeric)}</p>
+        <div className="likert-scale-row">
+          {likertScale.map((step) => (
+            <div
+              key={step.value}
+              className={`likert-scale-step ${numeric === step.value ? 'active' : ''}`}
+              style={{ '--scale-color': step.color }}
+              title={`${step.value} - ${step.label}`}
+            >
+              <span className="likert-scale-number">{step.value}</span>
+              <span className="likert-scale-label">{step.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+  const logicalCheckLabel = {
+    logical: 'Logical and coherent',
+    not_logical: 'Not logical/coherent'
+  };
   const isSecond = reflection.reflectionAttempt === 2 ||
     (reflection.revisionChangeText && String(reflection.revisionChangeText).trim() !== '');
+  const hasTeacherFeedback = showTeacherFeedback && (
+    reflection.logicalCheck === 'logical' ||
+    reflection.logicalCheck === 'not_logical' ||
+    (reflection.teacherNotes && String(reflection.teacherNotes).trim() !== '')
+  );
+  const renderTeacherFeedback = () => {
+    if (!hasTeacherFeedback) return null;
+    return (
+      <div className="teacher-feedback-summary">
+        <h5>Teacher feedback</h5>
+        {(reflection.logicalCheck === 'logical' || reflection.logicalCheck === 'not_logical') && (
+          <p><strong>Coherence:</strong> {logicalCheckLabel[reflection.logicalCheck]}</p>
+        )}
+        {reflection.teacherNotes && String(reflection.teacherNotes).trim() !== '' && (
+          <p><strong>Notes:</strong> {reflection.teacherNotes}</p>
+        )}
+      </div>
+    );
+  };
 
   if (isSecond) {
     return (
@@ -1177,6 +1287,7 @@ function ReflectionSummary({ reflection }) {
         <p><strong>Changes after feedback and expected improvement:</strong> {reflection.revisionChangeText || '—'}</p>
         <p><strong>Understanding now vs still unclear:</strong> {reflection.revisionUnderstandText || '—'}</p>
         <p><strong>Further changes with another iteration:</strong> {reflection.revisionNextIterationText || '—'}</p>
+        {renderTeacherFeedback()}
       </div>
     );
   }
@@ -1186,11 +1297,12 @@ function ReflectionSummary({ reflection }) {
       <h4>Student reflection</h4>
       {reflection.learnedText && <p><strong>What you learned:</strong> {reflection.learnedText}</p>}
       {reflection.difficultiesText && <p><strong>Difficulties:</strong> {reflection.difficultiesText}</p>}
-      {reflection.wroteCodeMyself != null && <p><strong>Wrote code myself:</strong> {likertLabels[reflection.wroteCodeMyself] || reflection.wroteCodeMyself}</p>}
+      {reflection.wroteCodeMyself != null && renderLikertScale('Wrote code myself', reflection.wroteCodeMyself)}
       {reflection.aiToolUsage && <p><strong>AI tool usage:</strong> {reflection.aiToolUsage}</p>}
-      {reflection.understoodGeneratedCode != null && <p><strong>Understood generated code:</strong> {likertLabels[reflection.understoodGeneratedCode] || reflection.understoodGeneratedCode}</p>}
+      {reflection.understoodGeneratedCode != null && renderLikertScale('Understood generated code', reflection.understoodGeneratedCode)}
       {reflection.ownVsExternalPercent != null && <p><strong>Own vs external:</strong> {reflection.ownVsExternalPercent}% own work</p>}
-      {reflection.reflectedOnApproach != null && <p><strong>Reflected on approach:</strong> {likertLabels[reflection.reflectedOnApproach] || reflection.reflectedOnApproach}</p>}
+      {reflection.reflectedOnApproach != null && renderLikertScale('Thought about strategy', reflection.reflectedOnApproach)}
+      {renderTeacherFeedback()}
     </div>
   );
 }
@@ -1319,6 +1431,7 @@ function TeacherSubmissionModal({ submission, assignmentTitle, detailData, loadi
     try {
       await axios.patch(`/reflections/${detailData.reflection.id}`, { logicalCheck: logicalCheck || null, teacherNotes });
       onRefreshReflections?.();
+      onClose();
     } catch (err) {
       console.error('Failed to save assessment:', err);
     } finally {
@@ -1333,51 +1446,55 @@ function TeacherSubmissionModal({ submission, assignmentTitle, detailData, loadi
           <h3>Submission: {assignmentTitle}</h3>
           <button type="button" onClick={onClose} aria-label="Close modal">×</button>
         </header>
-        <div className="modal-body">
+        <div className="modal-body modal-body-grid">
           {loading ? (
             <p>Loading…</p>
           ) : (
             <>
-              <div className="submission-detail-info">
-                <p><strong>Student:</strong> {submission.userEmail || `User #${submission.userId}`}</p>
-                <p><strong>File:</strong> {submission.filename}</p>
-                <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
-                <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
-                {(submission.score !== undefined && submission.score !== null) && (
-                  <p><strong>Score:</strong> {Math.round((submission.score || 0) * 100)}%</p>
-                )}
-              </div>
-              {detailData?.result?.feedback && (
-                <div className="submission-feedback">
-                  <h4>Test feedback</h4>
-                  <pre className="feedback-pre">{detailData.result.feedback}</pre>
+              <section className="modal-column">
+                <div className="submission-detail-info">
+                  <p><strong>Student:</strong> {submission.userEmail || `User #${submission.userId}`}</p>
+                  <p><strong>File:</strong> {submission.filename}</p>
+                  <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
+                  <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
+                  {(submission.score !== undefined && submission.score !== null) && (
+                    <p><strong>Score:</strong> {Math.round((submission.score || 0) * 100)}%</p>
+                  )}
                 </div>
-              )}
-              {detailData?.reflection ? (
-                <>
-                  <ReflectionSummary reflection={detailData.reflection} />
-                  <div className="reflection-assessment">
-                    <h4>Teacher assessment</h4>
-                    <label>
-                      Is the reflection logical and coherent?
-                      <select value={logicalCheck} onChange={(e) => setLogicalCheck(e.target.value)}>
-                        <option value="">— Not checked —</option>
-                        <option value="logical">Logical</option>
-                        <option value="not_logical">Not logical</option>
-                      </select>
-                    </label>
-                    <label>
-                      Notes (optional)
-                      <textarea rows={2} value={teacherNotes} onChange={(e) => setTeacherNotes(e.target.value)} placeholder="Teacher notes..." />
-                    </label>
-                    <PrimaryButton onClick={handleSaveAssessment} disabled={saving}>
-                      {saving ? 'Saving…' : 'Save assessment'}
-                    </PrimaryButton>
+                {detailData?.result?.feedback && (
+                  <div className="submission-feedback">
+                    <h4>Test feedback</h4>
+                    <pre className="feedback-pre">{detailData.result.feedback}</pre>
                   </div>
-                </>
-              ) : (
-                <p className="reflection-missing">No reflection submitted for this submission yet.</p>
-              )}
+                )}
+              </section>
+              <section className="modal-column">
+                {detailData?.reflection ? (
+                  <>
+                    <ReflectionSummary reflection={detailData.reflection} compact />
+                    <div className="reflection-assessment">
+                      <h4>Teacher assessment</h4>
+                      <label>
+                        Is the reflection logical and coherent?
+                        <select value={logicalCheck} onChange={(e) => setLogicalCheck(e.target.value)}>
+                          <option value="">— Not checked —</option>
+                          <option value="logical">Logical</option>
+                          <option value="not_logical">Not logical</option>
+                        </select>
+                      </label>
+                      <label>
+                        Notes (optional)
+                        <textarea rows={2} value={teacherNotes} onChange={(e) => setTeacherNotes(e.target.value)} placeholder="Teacher notes..." />
+                      </label>
+                      <PrimaryButton onClick={handleSaveAssessment} disabled={saving}>
+                        {saving ? 'Saving…' : 'Save assessment'}
+                      </PrimaryButton>
+                    </div>
+                  </>
+                ) : (
+                  <p className="reflection-missing">No reflection submitted for this submission yet.</p>
+                )}
+              </section>
             </>
           )}
         </div>

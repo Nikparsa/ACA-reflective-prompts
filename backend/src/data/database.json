@@ -89,6 +89,30 @@
       "email": "teacher-test@fh.com",
       "password": "12345",
       "role": "teacher"
+    },
+    {
+      "id": 16,
+      "email": "ps@fh.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 17,
+      "email": "teacher@fh.com",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 18,
+      "email": "ps2@fh.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 19,
+      "email": "stu@fh-edu.com",
+      "password": "123456",
+      "role": "student"
     }
   ],
   "assignments": [
@@ -679,6 +703,96 @@
       "status": "completed",
       "createdAt": "2026-04-14T10:35:35.668Z",
       "score": 0.6
+    },
+    {
+      "id": 67,
+      "userId": 16,
+      "assignmentId": 1,
+      "filename": "1777189296396-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-26T07:41:36.406Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 68,
+      "userId": 16,
+      "assignmentId": 2,
+      "filename": "1777274148932-csv_25p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T07:15:48.950Z",
+      "score": 0.25
+    },
+    {
+      "id": 69,
+      "userId": 16,
+      "assignmentId": 1,
+      "filename": "1777279280115-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T08:41:20.122Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 70,
+      "userId": 16,
+      "assignmentId": 3,
+      "filename": "1777279347447-vector_20p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T08:42:27.451Z",
+      "score": 0.2
+    },
+    {
+      "id": 71,
+      "userId": 16,
+      "assignmentId": 3,
+      "filename": "1777279779458-fizzbuzz_50p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T08:49:39.465Z",
+      "score": 0
+    },
+    {
+      "id": 72,
+      "userId": 16,
+      "assignmentId": 2,
+      "filename": "1777280385733-csv_25p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T08:59:45.737Z",
+      "score": 0.25
+    },
+    {
+      "id": 73,
+      "userId": 18,
+      "assignmentId": 1,
+      "filename": "1777300223338-fizzbuzz_50p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T14:30:23.345Z",
+      "score": 0.5
+    },
+    {
+      "id": 74,
+      "userId": 18,
+      "assignmentId": 1,
+      "filename": "1777300989449-fizzbuzz_17p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T14:43:09.454Z",
+      "score": 0.16666666666666666
+    },
+    {
+      "id": 75,
+      "userId": 19,
+      "assignmentId": 1,
+      "filename": "1777311537670-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T17:38:57.681Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 76,
+      "userId": 19,
+      "assignmentId": 1,
+      "filename": "1777320152075-fizzbuzz_67p.zip",
+      "status": "completed",
+      "createdAt": "2026-04-27T20:02:32.078Z",
+      "score": 0.6666666666666666
     }
   ],
   "results": [
@@ -1275,6 +1389,96 @@
       "passedTests": 3,
       "feedback": "Failed tests:\n  • tests/test_vector2d.py::test_vector_scalar_multiplication: def test_vector_scalar_multiplication():\n  • tests/test_vector2d.py::test_vector_dot_product: def test_vector_dot_product():",
       "createdAt": "2026-04-14T10:35:42.235Z"
+    },
+    {
+      "id": 67,
+      "submissionId": 67,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-04-26T07:41:43.308Z"
+    },
+    {
+      "id": 68,
+      "submissionId": 68,
+      "score": 0.25,
+      "totalTests": 4,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_median: E       AssertionError: assert 999 == 3.0\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-04-27T07:15:56.216Z"
+    },
+    {
+      "id": 69,
+      "submissionId": 69,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-04-27T08:41:27.373Z"
+    },
+    {
+      "id": 70,
+      "submissionId": 70,
+      "score": 0.2,
+      "totalTests": 5,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_vector2d.py::test_vector_addition: def test_vector_addition():\n  • tests/test_vector2d.py::test_vector_magnitude: def test_vector_magnitude():\n  • tests/test_vector2d.py::test_vector_scalar_multiplication: def test_vector_scalar_multiplication():",
+      "createdAt": "2026-04-27T08:42:32.990Z"
+    },
+    {
+      "id": 71,
+      "submissionId": 71,
+      "score": 0,
+      "totalTests": 5,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_vector2d.py::test_vector_creation: def test_vector_creation():\n  • tests/test_vector2d.py::test_vector_addition: def test_vector_addition():\n  • tests/test_vector2d.py::test_vector_magnitude: def test_vector_magnitude():",
+      "createdAt": "2026-04-27T08:49:45.124Z"
+    },
+    {
+      "id": 72,
+      "submissionId": 72,
+      "score": 0.25,
+      "totalTests": 4,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_median: E       AssertionError: assert 999 == 3.0\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-04-27T08:59:51.220Z"
+    },
+    {
+      "id": 73,
+      "submissionId": 73,
+      "score": 0.5,
+      "totalTests": 6,
+      "passedTests": 3,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'\n  • tests/test_fizzbuzz.py::test_handles_negative_multiples: E       AssertionError: assert 'wrong' == 'Fizz'",
+      "createdAt": "2026-04-27T14:30:29.278Z"
+    },
+    {
+      "id": 74,
+      "submissionId": 74,
+      "score": 0.16666666666666666,
+      "totalTests": 6,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: assert 'wrong' == '1'\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: assert 'wrong' == 'Fizz'\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'",
+      "createdAt": "2026-04-27T14:43:14.764Z"
+    },
+    {
+      "id": 75,
+      "submissionId": 75,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-04-27T17:39:03.327Z"
+    },
+    {
+      "id": 76,
+      "submissionId": 76,
+      "score": 0.6666666666666666,
+      "totalTests": 6,
+      "passedTests": 4,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'\n  • tests/test_fizzbuzz.py::test_handles_negative_multiples: E       AssertionError: assert 'wrong' == 'Fizz'",
+      "createdAt": "2026-04-27T20:02:36.824Z"
     }
   ],
   "reflections": [
@@ -1413,6 +1617,162 @@
       "revisionUnderstandText": "",
       "revisionNextIterationText": "",
       "createdAt": "2026-04-14T10:36:02.112Z"
+    },
+    {
+      "id": 9,
+      "submissionId": 68,
+      "assignmentId": 2,
+      "userId": 16,
+      "reflectionAttempt": 1,
+      "learnedText": "we",
+      "difficultiesText": "we",
+      "wroteCodeMyself": 2,
+      "aiToolUsage": "Never",
+      "understoodGeneratedCode": 3,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-04-27T07:16:09.037Z"
+    },
+    {
+      "id": 10,
+      "submissionId": 69,
+      "assignmentId": 1,
+      "userId": 16,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "dd",
+      "revisionUnderstandText": "dd",
+      "revisionNextIterationText": "ff",
+      "createdAt": "2026-04-27T08:42:12.424Z"
+    },
+    {
+      "id": 11,
+      "submissionId": 70,
+      "assignmentId": 3,
+      "userId": 16,
+      "reflectionAttempt": 1,
+      "learnedText": "we",
+      "difficultiesText": "we",
+      "wroteCodeMyself": 2,
+      "aiToolUsage": "Never",
+      "understoodGeneratedCode": 2,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-04-27T08:43:11.694Z"
+    },
+    {
+      "id": 12,
+      "submissionId": 71,
+      "assignmentId": 3,
+      "userId": 16,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "aa",
+      "revisionUnderstandText": "ss",
+      "revisionNextIterationText": "ff",
+      "createdAt": "2026-04-27T08:51:07.208Z"
+    },
+    {
+      "id": 13,
+      "submissionId": 73,
+      "assignmentId": 1,
+      "userId": 18,
+      "reflectionAttempt": 1,
+      "learnedText": "hjh",
+      "difficultiesText": "kkj",
+      "wroteCodeMyself": 3,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 3,
+      "ownVsExternalPercent": 54,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-04-27T14:35:12.743Z",
+      "logicalCheck": "logical",
+      "teacherNotes": "good",
+      "assessedAt": "2026-04-27T15:00:54.936Z",
+      "assessedBy": 17
+    },
+    {
+      "id": 14,
+      "submissionId": 74,
+      "assignmentId": 1,
+      "userId": 18,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "des",
+      "revisionUnderstandText": "fd",
+      "revisionNextIterationText": "fg",
+      "createdAt": "2026-04-27T14:43:31.298Z",
+      "logicalCheck": "logical",
+      "teacherNotes": "good answer",
+      "assessedAt": "2026-04-27T14:54:49.710Z",
+      "assessedBy": 17
+    },
+    {
+      "id": 15,
+      "submissionId": 75,
+      "assignmentId": 1,
+      "userId": 19,
+      "reflectionAttempt": 1,
+      "learnedText": " I learned to order FizzBuzz conditions correctly and return strings consistently, including negatives and \"0\" for zero.",
+      "difficultiesText": "I first got wrong output for numbers divisible by both 3 and 5, and I initially handled 0 incorrectly.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 4,
+      "ownVsExternalPercent": 79,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-04-27T17:52:57.837Z",
+      "logicalCheck": "logical",
+      "teacherNotes": "You correctly identified condition-order and zero-handling issues; next time add one concrete code change you applied.",
+      "assessedAt": "2026-04-27T19:56:57.816Z",
+      "assessedBy": 2
+    },
+    {
+      "id": 16,
+      "submissionId": 76,
+      "assignmentId": 1,
+      "userId": 19,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "tz",
+      "revisionUnderstandText": "zu",
+      "revisionNextIterationText": "ii",
+      "createdAt": "2026-04-27T20:05:32.690Z"
     }
   ]
 }

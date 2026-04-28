@@ -358,7 +358,7 @@ app.delete('/api/assignments/:id', authRequired, teacherOnly, (req, res) => {
   res.json({ ok: true });
 });
 
-// Submission routes
+// Step 3: Backend receives it, validates, creates submissionId
 app.post('/api/submissions', authRequired, upload.single('file'), (req, res) => {
   const { assignmentId } = req.body;
   
@@ -391,7 +391,7 @@ app.post('/api/submissions', authRequired, upload.single('file'), (req, res) => 
 // in the database, ensuring sequential numbering (e.g., #1, #2, #3...).
 // The submission is immediately added to the database and saved to disk.
 // Status is set to 'queued' until the runner processes it.
-  
+  // Step 3.1: Creates a new submission record with auto-incremented ID.
   const submission = {
     id: database.submissions.length + 1,
     userId: req.user.id,
@@ -454,7 +454,7 @@ app.post('/api/submissions', authRequired, upload.single('file'), (req, res) => 
       saveDatabase();
     }
   });
-  
+  // Step 3.2: Returns submissionId to frontend
   res.json({ 
     submissionId: submission.id,
     message: 'Submission queued for processing'
@@ -515,7 +515,44 @@ app.get('/api/submissions/:id', authRequired, (req, res) => {
   res.json({ submission, result, reflection });
 });
 
-// Reflection module (ACA-Reflection-Extension per Exposé)
+app.delete('/api/submissions/:id/cancel', authRequired, (req, res) => {
+  const submissionId = parseInt(req.params.id, 10);
+  if (!Number.isFinite(submissionId)) {
+    return res.status(400).json({ error: 'Invalid submission id' });
+  }
+
+  const submissionIndex = database.submissions.findIndex((s) => s.id === submissionId);
+  if (submissionIndex === -1) {
+    return res.status(404).json({ error: 'Submission not found' });
+  }
+
+  const submission = database.submissions[submissionIndex];
+  const isOwner = submission.userId === req.user.id;
+  if (req.user.role !== 'teacher' && !isOwner) {
+    return res.status(403).json({ error: 'You can only cancel your own submissions' });
+  }
+
+  const hasReflection = (database.reflections || []).some((reflection) => reflection.submissionId === submissionId);
+  if (hasReflection) {
+    return res.status(400).json({ error: 'Cannot cancel submission after reflection was submitted' });
+  }
+
+  database.submissions.splice(submissionIndex, 1);
+  database.results = (database.results || []).filter((result) => result.submissionId !== submissionId);
+  database.reflections = (database.reflections || []).filter((reflection) => reflection.submissionId !== submissionId);
+
+  if (submission.filename) {
+    const uploadedFilePath = path.join(submissionsDir, submission.filename);
+    if (fs.existsSync(uploadedFilePath)) {
+      fs.unlinkSync(uploadedFilePath);
+    }
+  }
+
+  saveDatabase();
+  res.json({ ok: true, submissionId });
+});
+
+// Step 5: Reflection answer are submitted and saved. 
 app.post('/api/reflections', authRequired, (req, res) => {
   const {
     submissionId,
@@ -588,7 +625,7 @@ app.post('/api/reflections', authRequired, (req, res) => {
     revisionNextIterationText: isSecondAttempt ? String(revisionNextIterationText).trim() : '',
     createdAt: new Date().toISOString()
   };
-
+// Step 5.1: save Reflection. 
   database.reflections.push(reflection);
   saveDatabase();
 
@@ -686,6 +723,7 @@ app.post('/api/runner/callback', (req, res) => {
     } else {
       console.error(`[CALLBACK] ERROR: Submission ${submissionId} not found in database`);
       console.error(`[CALLBACK] Available submission IDs:`, database.submissions.map(s => s.id));
+      return res.json({ ok: true, ignored: true, reason: 'submission_missing' });
     }
     
     // Create or update result
