@@ -1,4 +1,4 @@
-# Reflection and Self-Directed Activity in AI-Supported Programming Education
+# Reflection and Self-Directed Learning in AI-Supported Programming Education
 
 This project investigates the impact of reflective prompts on student engagement and problem-solving in automated code assessment.
 

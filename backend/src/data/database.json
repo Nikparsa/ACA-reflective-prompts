@@ -793,6 +793,24 @@
       "status": "completed",
       "createdAt": "2026-04-27T20:02:32.078Z",
       "score": 0.6666666666666666
+    },
+    {
+      "id": 77,
+      "userId": 19,
+      "assignmentId": 2,
+      "filename": "1779914664496-csv_50p.zip",
+      "status": "completed",
+      "createdAt": "2026-05-27T20:44:24.504Z",
+      "score": 0.5
+    },
+    {
+      "id": 78,
+      "userId": 19,
+      "assignmentId": 2,
+      "filename": "1779914830571-csv_75p.zip",
+      "status": "completed",
+      "createdAt": "2026-05-27T20:47:10.578Z",
+      "score": 0.75
     }
   ],
   "results": [
@@ -1479,6 +1497,24 @@
       "passedTests": 4,
       "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'\n  • tests/test_fizzbuzz.py::test_handles_negative_multiples: E       AssertionError: assert 'wrong' == 'Fizz'",
       "createdAt": "2026-04-27T20:02:36.824Z"
+    },
+    {
+      "id": 77,
+      "submissionId": 77,
+      "score": 0.5,
+      "totalTests": 4,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-05-27T20:44:32.895Z"
+    },
+    {
+      "id": 78,
+      "submissionId": 78,
+      "score": 0.75,
+      "totalTests": 4,
+      "passedTests": 3,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_empty_data: def test_empty_data():",
+      "createdAt": "2026-05-27T20:47:15.916Z"
     }
   ],
   "reflections": [
@@ -1773,6 +1809,24 @@
       "revisionUnderstandText": "zu",
       "revisionNextIterationText": "ii",
       "createdAt": "2026-04-27T20:05:32.690Z"
+    },
+    {
+      "id": 17,
+      "submissionId": 77,
+      "assignmentId": 2,
+      "userId": 19,
+      "reflectionAttempt": 1,
+      "learnedText": "23",
+      "difficultiesText": "23",
+      "wroteCodeMyself": 2,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 2,
+      "ownVsExternalPercent": 71,
+      "reflectedOnApproach": 3,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-05-27T20:46:49.559Z"
     }
   ]
 }
