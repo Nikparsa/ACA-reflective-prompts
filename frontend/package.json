@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "node_modules/.bin/vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:real": "cypress run --spec cypress/e2e/student-real-flow.cy.js,cypress/e2e/teacher-real-flow.cy.js"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
@@ -19,15 +22,9 @@
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.1.1",
     "autoprefixer": "^10.4.21",
+    "cypress": "^15.18.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.14",
     "vite": "^5.0.0"
   }
 }
-
-
-
-
-
-
-

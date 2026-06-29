@@ -113,6 +113,192 @@
       "email": "stu@fh-edu.com",
       "password": "123456",
       "role": "student"
+    },
+    {
+      "id": 20,
+      "email": "newteacher@fh.com",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 21,
+      "email": "newstudent@fh.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 22,
+      "email": "sara@fh.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 23,
+      "email": "student-sara@fh.com",
+      "password": "12345",
+      "role": "student"
+    },
+    {
+      "id": 24,
+      "email": "teacher23@gmail.com",
+      "password": "12345",
+      "role": "teacher"
+    },
+    {
+      "id": 25,
+      "email": "e2e_student_1782740087101@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 26,
+      "email": "e2e_student_1782740129104@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 27,
+      "email": "e2e_student_1782740321968@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 28,
+      "email": "e2e_student_1782740513936@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 29,
+      "email": "pp@g1.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 30,
+      "email": "p4@gg.com",
+      "password": "12345",
+      "role": "teacher"
+    },
+    {
+      "id": 31,
+      "email": "e2e_student_1782741874078@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 32,
+      "email": "e2e_student_1782741933112@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 33,
+      "email": "e2e_nav_student_1782742282687@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 34,
+      "email": "e2e_nav_teacher_1782742284765@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 35,
+      "email": "e2e_nav_student_1782742324809@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 36,
+      "email": "e2e_nav_teacher_1782742326766@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 37,
+      "email": "e2e_student_1782742329445@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 38,
+      "email": "e2e_teacher_1782742335117@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 39,
+      "email": "e2e_teacher_1782742400457@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 40,
+      "email": "e2e_teacher_1782742464893@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 41,
+      "email": "e2e_teacher_1782742529062@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 42,
+      "email": "e2e_nav_student_1782742567523@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 43,
+      "email": "e2e_nav_teacher_1782742569518@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 44,
+      "email": "e2e_student_1782742572215@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 45,
+      "email": "e2e_teacher_1782742577952@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 46,
+      "email": "e2e_nav_student_1782742765657@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 47,
+      "email": "e2e_nav_teacher_1782742767169@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 48,
+      "email": "e2e_student_1782742846823@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 49,
+      "email": "e2e_teacher_1782742947235@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 50,
+      "email": "w@w.com",
+      "password": "1234",
+      "role": "teacher"
     }
   ],
   "assignments": [
@@ -811,6 +997,200 @@
       "status": "completed",
       "createdAt": "2026-05-27T20:47:10.578Z",
       "score": 0.75
+    },
+    {
+      "id": 79,
+      "userId": 19,
+      "assignmentId": 3,
+      "filename": "1781021411099-vector_60p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-09T16:10:11.107Z",
+      "score": 0.6
+    },
+    {
+      "id": 80,
+      "userId": 19,
+      "assignmentId": 3,
+      "filename": "1781022156269-vector_60p.zip",
+      "status": "failed",
+      "createdAt": "2026-06-09T16:22:36.276Z"
+    },
+    {
+      "id": 81,
+      "userId": 21,
+      "assignmentId": 1,
+      "filename": "1781873052678-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-19T12:44:12.682Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 82,
+      "userId": 22,
+      "assignmentId": 1,
+      "filename": "1782054838395-fizzbuzz_2.zip",
+      "status": "completed",
+      "createdAt": "2026-06-21T15:13:58.400Z",
+      "score": 0.16666666666666666
+    },
+    {
+      "id": 83,
+      "userId": 22,
+      "assignmentId": 1,
+      "filename": "1782055224395-fizzbuzz_6.zip",
+      "status": "completed",
+      "createdAt": "2026-06-21T15:20:24.397Z",
+      "score": 1
+    },
+    {
+      "id": 84,
+      "userId": 23,
+      "assignmentId": 1,
+      "filename": "1782325815888-fizzbuzz_1.zip",
+      "status": "completed",
+      "createdAt": "2026-06-24T18:30:15.890Z",
+      "score": 0
+    },
+    {
+      "id": 85,
+      "userId": 23,
+      "assignmentId": 1,
+      "filename": "1782325984728-fizzbuzz_2.zip",
+      "status": "completed",
+      "createdAt": "2026-06-24T18:33:04.729Z",
+      "score": 0.16666666666666666
+    },
+    {
+      "id": 86,
+      "userId": 23,
+      "assignmentId": 2,
+      "filename": "1782326080367-csv_2.zip",
+      "status": "completed",
+      "createdAt": "2026-06-24T18:34:40.370Z",
+      "score": 0.25
+    },
+    {
+      "id": 87,
+      "userId": 23,
+      "assignmentId": 2,
+      "filename": "1782326236852-csv_3.zip",
+      "status": "completed",
+      "createdAt": "2026-06-24T18:37:16.853Z",
+      "score": 0.5
+    },
+    {
+      "id": 88,
+      "userId": 23,
+      "assignmentId": 3,
+      "filename": "1782326302624-vector_1.zip",
+      "status": "completed",
+      "createdAt": "2026-06-24T18:38:22.625Z",
+      "score": 0
+    },
+    {
+      "id": 89,
+      "userId": 25,
+      "assignmentId": 1,
+      "filename": "1782740089121-fizzbuzz_valid.zip",
+      "status": "failed",
+      "createdAt": "2026-06-29T13:34:49.123Z"
+    },
+    {
+      "id": 90,
+      "userId": 26,
+      "assignmentId": 1,
+      "filename": "1782740130761-fizzbuzz_valid.zip",
+      "status": "failed",
+      "createdAt": "2026-06-29T13:35:30.762Z"
+    },
+    {
+      "id": 91,
+      "userId": 27,
+      "assignmentId": 1,
+      "filename": "1782740328273-fizzbuzz_valid.zip",
+      "status": "failed",
+      "createdAt": "2026-06-29T13:38:48.283Z"
+    },
+    {
+      "id": 92,
+      "userId": 28,
+      "assignmentId": 1,
+      "filename": "1782740517038-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T13:41:57.044Z",
+      "score": 1
+    },
+    {
+      "id": 93,
+      "userId": 29,
+      "assignmentId": 1,
+      "filename": "1782740592795-fizzbuzz_17p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T13:43:12.798Z",
+      "score": 0.16666666666666666
+    },
+    {
+      "id": 94,
+      "userId": 29,
+      "assignmentId": 1,
+      "filename": "1782740735785-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T13:45:35.786Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 95,
+      "userId": 29,
+      "assignmentId": 2,
+      "filename": "1782741023121-csv_25p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T13:50:23.126Z",
+      "score": 0.25
+    },
+    {
+      "id": 96,
+      "userId": 31,
+      "assignmentId": 1,
+      "filename": "1782741875707-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:04:35.709Z",
+      "score": 1
+    },
+    {
+      "id": 97,
+      "userId": 32,
+      "assignmentId": 1,
+      "filename": "1782741935136-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:05:35.141Z",
+      "score": 1
+    },
+    {
+      "id": 98,
+      "userId": 37,
+      "assignmentId": 1,
+      "filename": "1782742331106-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:12:11.107Z",
+      "score": 1
+    },
+    {
+      "id": 99,
+      "userId": 44,
+      "assignmentId": 1,
+      "filename": "1782742573900-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:16:13.902Z",
+      "score": 1
+    },
+    {
+      "id": 100,
+      "userId": 48,
+      "assignmentId": 1,
+      "filename": "1782742848412-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:20:48.415Z",
+      "score": 1
     }
   ],
   "results": [
@@ -1515,6 +1895,168 @@
       "passedTests": 3,
       "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_empty_data: def test_empty_data():",
       "createdAt": "2026-05-27T20:47:15.916Z"
+    },
+    {
+      "id": 79,
+      "submissionId": 79,
+      "score": 0.6,
+      "totalTests": 5,
+      "passedTests": 3,
+      "feedback": "Failed tests:\n  • tests/test_vector2d.py::test_vector_scalar_multiplication: def test_vector_scalar_multiplication():\n  • tests/test_vector2d.py::test_vector_dot_product: def test_vector_dot_product():",
+      "createdAt": "2026-06-09T16:10:16.922Z"
+    },
+    {
+      "id": 80,
+      "submissionId": 81,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-06-19T12:44:18.318Z"
+    },
+    {
+      "id": 81,
+      "submissionId": 82,
+      "score": 0.16666666666666666,
+      "totalTests": 6,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: assert 'wrong' == '1'\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: assert 'wrong' == 'Fizz'\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'",
+      "createdAt": "2026-06-21T15:14:04.595Z"
+    },
+    {
+      "id": 82,
+      "submissionId": 83,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-21T15:20:29.057Z"
+    },
+    {
+      "id": 83,
+      "submissionId": 84,
+      "score": 0,
+      "totalTests": 6,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: assert 'wrong' == '1'\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: assert 'wrong' == 'Fizz'\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'",
+      "createdAt": "2026-06-24T18:30:21.437Z"
+    },
+    {
+      "id": 84,
+      "submissionId": 85,
+      "score": 0.16666666666666666,
+      "totalTests": 6,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: assert 'wrong' == '1'\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: assert 'wrong' == 'Fizz'\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'",
+      "createdAt": "2026-06-24T18:33:09.404Z"
+    },
+    {
+      "id": 85,
+      "submissionId": 86,
+      "score": 0.25,
+      "totalTests": 4,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_median: E       AssertionError: assert 999 == 3.0\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-06-24T18:34:45.233Z"
+    },
+    {
+      "id": 86,
+      "submissionId": 87,
+      "score": 0.5,
+      "totalTests": 4,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-06-24T18:37:21.725Z"
+    },
+    {
+      "id": 87,
+      "submissionId": 88,
+      "score": 0,
+      "totalTests": 5,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_vector2d.py::test_vector_creation: def test_vector_creation():\n  • tests/test_vector2d.py::test_vector_addition: def test_vector_addition():\n  • tests/test_vector2d.py::test_vector_magnitude: def test_vector_magnitude():",
+      "createdAt": "2026-06-24T18:38:27.433Z"
+    },
+    {
+      "id": 88,
+      "submissionId": 92,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T13:42:03.118Z"
+    },
+    {
+      "id": 89,
+      "submissionId": 93,
+      "score": 0.16666666666666666,
+      "totalTests": 6,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: assert 'wrong' == '1'\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: assert 'wrong' == 'Fizz'\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'",
+      "createdAt": "2026-06-29T13:43:17.534Z"
+    },
+    {
+      "id": 90,
+      "submissionId": 94,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-06-29T13:45:40.447Z"
+    },
+    {
+      "id": 91,
+      "submissionId": 95,
+      "score": 0.25,
+      "totalTests": 4,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_median: E       AssertionError: assert 999 == 3.0\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-06-29T13:50:27.820Z"
+    },
+    {
+      "id": 92,
+      "submissionId": 96,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:04:40.394Z"
+    },
+    {
+      "id": 93,
+      "submissionId": 97,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:05:39.823Z"
+    },
+    {
+      "id": 94,
+      "submissionId": 98,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:12:15.861Z"
+    },
+    {
+      "id": 95,
+      "submissionId": 99,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:16:18.667Z"
+    },
+    {
+      "id": 96,
+      "submissionId": 100,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:20:53.099Z"
     }
   ],
   "reflections": [
@@ -1827,6 +2369,294 @@
       "revisionUnderstandText": "",
       "revisionNextIterationText": "",
       "createdAt": "2026-05-27T20:46:49.559Z"
+    },
+    {
+      "id": 18,
+      "submissionId": 79,
+      "assignmentId": 3,
+      "userId": 19,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned how to structure my solution more clearly.",
+      "difficultiesText": "I had trouble with edge cases and test expectations.",
+      "wroteCodeMyself": 3,
+      "aiToolUsage": "Often",
+      "understoodGeneratedCode": 4,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 3,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-09T16:11:37.959Z"
+    },
+    {
+      "id": 19,
+      "submissionId": 80,
+      "assignmentId": 3,
+      "userId": 19,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "I refactored the validation logic and fixed edge-case handling. This should improve correctness and reduce runtime errors",
+      "revisionUnderstandText": "I now better understand the data flow and test expectations. I’m still not fully confident about optimizing performance for larger inputs.",
+      "revisionNextIterationText": "I would add more unit tests and improve error messages to make debugging easier.",
+      "createdAt": "2026-06-09T16:23:57.695Z"
+    },
+    {
+      "id": 20,
+      "submissionId": 82,
+      "assignmentId": 1,
+      "userId": 22,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned how condition order affects correctness in FizzBuzz.",
+      "difficultiesText": "I got the condition order wrong.",
+      "wroteCodeMyself": 3,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 4,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-21T15:19:00.726Z"
+    },
+    {
+      "id": 21,
+      "submissionId": 83,
+      "assignmentId": 1,
+      "userId": 22,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "I fixed the loop boundaries.",
+      "revisionUnderstandText": "I now understand that condition priority is the key part of FizzBuzz.\nWhat is still unclear for me is how to design stronger edge-case tests on my own.",
+      "revisionNextIterationText": "I would add explicit unit tests for boundary values.",
+      "createdAt": "2026-06-21T15:23:59.251Z"
+    },
+    {
+      "id": 22,
+      "submissionId": 89,
+      "assignmentId": 1,
+      "userId": 25,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:34:51.684Z"
+    },
+    {
+      "id": 23,
+      "submissionId": 90,
+      "assignmentId": 1,
+      "userId": 26,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:35:33.363Z"
+    },
+    {
+      "id": 24,
+      "submissionId": 91,
+      "assignmentId": 1,
+      "userId": 27,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:38:52.589Z"
+    },
+    {
+      "id": 25,
+      "submissionId": 92,
+      "assignmentId": 1,
+      "userId": 28,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:41:59.656Z"
+    },
+    {
+      "id": 26,
+      "submissionId": 93,
+      "assignmentId": 1,
+      "userId": 29,
+      "reflectionAttempt": 1,
+      "learnedText": "df",
+      "difficultiesText": "fg",
+      "wroteCodeMyself": 1,
+      "aiToolUsage": "Never",
+      "understoodGeneratedCode": 1,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 2,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:43:28.181Z"
+    },
+    {
+      "id": 27,
+      "submissionId": 94,
+      "assignmentId": 1,
+      "userId": 29,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "er",
+      "revisionUnderstandText": "rt",
+      "revisionNextIterationText": "tz",
+      "createdAt": "2026-06-29T13:45:50.805Z"
+    },
+    {
+      "id": 28,
+      "submissionId": 95,
+      "assignmentId": 2,
+      "userId": 29,
+      "reflectionAttempt": 1,
+      "learnedText": "er",
+      "difficultiesText": "tz",
+      "wroteCodeMyself": 3,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 2,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 2,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T13:50:40.645Z"
+    },
+    {
+      "id": 29,
+      "submissionId": 96,
+      "assignmentId": 1,
+      "userId": 31,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:04:38.361Z"
+    },
+    {
+      "id": 30,
+      "submissionId": 97,
+      "assignmentId": 1,
+      "userId": 32,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:05:37.815Z"
+    },
+    {
+      "id": 31,
+      "submissionId": 98,
+      "assignmentId": 1,
+      "userId": 37,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:12:13.707Z"
+    },
+    {
+      "id": 32,
+      "submissionId": 99,
+      "assignmentId": 1,
+      "userId": 44,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:16:16.492Z"
+    },
+    {
+      "id": 33,
+      "submissionId": 100,
+      "assignmentId": 1,
+      "userId": 48,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:20:51.003Z"
     }
   ]
 }

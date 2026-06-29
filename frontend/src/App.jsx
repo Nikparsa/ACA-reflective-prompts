@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
@@ -89,6 +89,13 @@ function getSubmissionStatusInfo(submission) {
   return { label: 'Unknown', className: 'status-default' };
 }
 
+function getDisplayFilename(filename) {
+  if (!filename || typeof filename !== 'string') return '';
+  // Uploaded files are stored as "<timestamp>-<originalName>".
+  // Hide the timestamp for cleaner UI labels.
+  return filename.replace(/^\d+-/, '');
+}
+
 function App() {
   const [user, setUser] = useState(null);
   const [activeSection, setActiveSection] = useState('assignments');
@@ -107,6 +114,33 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
   const [reflections, setReflections] = useState([]);
+  const statusMessageTimerRef = useRef(null);
+
+  const showStatusMessage = (message, { autoHideMs = 0 } = {}) => {
+    if (statusMessageTimerRef.current) {
+      clearTimeout(statusMessageTimerRef.current);
+      statusMessageTimerRef.current = null;
+    }
+
+    setStatusMessage(message);
+
+    if (autoHideMs > 0) {
+      statusMessageTimerRef.current = setTimeout(() => {
+        setStatusMessage((current) =>
+          current?.type === message.type && current?.text === message.text ? null : current
+        );
+        statusMessageTimerRef.current = null;
+      }, autoHideMs);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (statusMessageTimerRef.current) {
+        clearTimeout(statusMessageTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -185,7 +219,10 @@ function App() {
 
       setUser(userData);
       setActiveSection('assignments');
-      setStatusMessage({ type: 'success', text: `Welcome back, ${userData.email.split('@')[0]}!` });
+      showStatusMessage(
+        { type: 'success', text: `Welcome back, ${userData.email.split('@')[0]}!` },
+        { autoHideMs: 4000 }
+      );
       return { success: true };
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Login failed' };
@@ -206,7 +243,10 @@ function App() {
 
       setUser(userData);
       setActiveSection('assignments');
-      setStatusMessage({ type: 'success', text: 'Your account is ready. Explore your dashboard!' });
+      showStatusMessage(
+        { type: 'success', text: 'Your account is ready. Explore your dashboard!' },
+        { autoHideMs: 4000 }
+      );
       return { success: true };
     } catch (error) {
       return { success: false, error: error.response?.data?.error || 'Registration failed' };
@@ -243,7 +283,6 @@ function App() {
       // Reload submissions from backend to get the real data
       const submissionsResponse = await axios.get('/submissions').catch(() => ({ data: [] }));
       setSubmissions(submissionsResponse.data);
-      setStatusMessage({ type: 'success', text: 'Submission received. We will notify you once grading is complete.' });
       return { success: true, submissionId: data.submissionId, assignmentId: parseInt(assignmentId) };
     } catch (error) {
       const message = error.response?.data?.error || 'Submission failed. Please try again.';
@@ -307,7 +346,10 @@ function App() {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       await hydrateData();
-      setStatusMessage({ type: 'success', text: 'Assignment created successfully.' });
+      showStatusMessage(
+        { type: 'success', text: 'Assignment created successfully.' },
+        { autoHideMs: 4000 }
+      );
       closeCreateAssignmentModal();
     } catch (error) {
       const message = error.response?.data?.error || 'Failed to create assignment.';
@@ -317,14 +359,35 @@ function App() {
     }
   };
 
+  const updateAssignment = async (assignmentId, payload) => {
+    await axios.put(`/assignments/${assignmentId}`, payload);
+    await hydrateData();
+    showStatusMessage(
+      { type: 'success', text: 'Assignment updated successfully.' },
+      { autoHideMs: 4000 }
+    );
+  };
+
+  const deleteAssignment = async (assignmentId) => {
+    await axios.delete(`/assignments/${assignmentId}`);
+    await hydrateData();
+    showStatusMessage(
+      { type: 'success', text: 'Assignment deleted successfully.' },
+      { autoHideMs: 4000 }
+    );
+  };
+
   const cancelSubmissionWithReflection = async (submissionId) => {
     await axios.delete(`/submissions/${submissionId}/cancel`);
     const submissionsResponse = await axios.get('/submissions').catch(() => ({ data: [] }));
     setSubmissions(submissionsResponse.data || []);
-    setStatusMessage({
-      type: 'info',
-      text: 'Submission was closed and removed. It is not visible in dashboards.'
-    });
+    showStatusMessage(
+      {
+        type: 'info',
+        text: 'Submission was closed and removed. It is not visible in dashboards.'
+      },
+      { autoHideMs: 4000 }
+    );
   };
 
 
@@ -366,9 +429,15 @@ function App() {
           submissions={submissions}
           onSubmitReflection={async (data) => {
             const res = await axios.post('/reflections', data);
+            showStatusMessage(
+              { type: 'success', text: 'Submission successful.' },
+              { autoHideMs: 4000 }
+            );
             return res.data;
           }}
           onCancelPendingSubmission={cancelSubmissionWithReflection}
+          onUpdateAssignment={updateAssignment}
+          onDeleteAssignment={deleteAssignment}
         />
       )}
 
@@ -378,6 +447,10 @@ function App() {
           assignments={assignments}
           onSubmitReflection={async (data) => {
             const res = await axios.post('/reflections', data);
+            showStatusMessage(
+              { type: 'success', text: 'Submission successful.' },
+              { autoHideMs: 4000 }
+            );
             return res.data;
           }}
         />
@@ -643,13 +716,16 @@ function AssignmentsSection({
   onCreateAssignment,
   submissions,
   onSubmitReflection,
-  onCancelPendingSubmission
+  onCancelPendingSubmission,
+  onUpdateAssignment,
+  onDeleteAssignment
 }) {
   const [file, setFile] = useState(null);
   const [localMessage, setLocalMessage] = useState(null);
   const [pendingReflection, setPendingReflection] = useState(null);
   const [showCloseConfirm, setShowCloseConfirm] = useState(false);
   const [closingReflection, setClosingReflection] = useState(false);
+  const [showEditAssignmentModal, setShowEditAssignmentModal] = useState(false);
 
   useEffect(() => {
     if (!selectedAssignment && assignments.length) {
@@ -678,7 +754,6 @@ function AssignmentsSection({
     const result = await onSubmit(selectedAssignment.id, file);
     if (result.success) {
       setFile(null);
-      setLocalMessage({ type: 'success', text: 'Assignment submitted successfully.' });
       if (result.submissionId && result.assignmentId && onSubmitReflection) {
         setPendingReflection({ submissionId: result.submissionId, assignmentId: result.assignmentId });
       }
@@ -715,8 +790,24 @@ function AssignmentsSection({
     }
   };
 
+  const handleDeleteAssignment = async () => {
+    if (!selectedAssignment || !onDeleteAssignment) return;
+    const confirmed = window.confirm(
+      `Delete assignment "${selectedAssignment.title}"? This action cannot be undone.`
+    );
+    if (!confirmed) return;
+    try {
+      await onDeleteAssignment(selectedAssignment.id);
+    } catch (error) {
+      setLocalMessage({
+        type: 'error',
+        text: error.response?.data?.error || 'Failed to delete assignment.'
+      });
+    }
+  };
+
   return (
-    <div className={user?.role === 'teacher' ? '' : 'two-column'}>
+    <div className="two-column">
       <div className="card assignments-list">
         <h2 style={{ margin: '0 0 1rem 0' }}>Assignments</h2>
         {user?.role === 'teacher' && onCreateAssignment && (
@@ -751,62 +842,92 @@ function AssignmentsSection({
         </div>
       </div>
 
-      {user?.role !== 'teacher' && (
       <div className="card submission-panel">
         {selectedAssignment ? (
-          <>
-            <header>
-              <h2>{selectedAssignment.title}</h2>
-              <p>{selectedAssignment.description}</p>
-            </header>
-            {Array.isArray(selectedAssignment.details) && selectedAssignment.details.length > 0 && (
-              <div className="assignment-brief">
-                <h3>Assignment brief</h3>
-                <ul>
-                  {selectedAssignment.details.map((detail, index) => (
-                    <li key={index}>{detail}</li>
-                  ))}
-                </ul>
+          user?.role === 'teacher' ? (
+            <>
+              <header>
+                <h2>{selectedAssignment.title}</h2>
+                <p>{selectedAssignment.description || 'No description provided.'}</p>
+              </header>
+              <div className="modal-actions" style={{ marginBottom: '1rem' }}>
+                <SecondaryButton type="button" onClick={() => setShowEditAssignmentModal(true)}>
+                  Edit assignment
+                </SecondaryButton>
+                <button
+                  type="button"
+                  className="danger-button"
+                  onClick={handleDeleteAssignment}
+                >
+                  Delete assignment
+                </button>
               </div>
-            )}
-            <div className="submission-guidelines">
-              <h3>Submission guidelines</h3>
-              <ul>
-                <li>Package your solution in a single ZIP file.</li>
-                <li>Ensure your main entry point matches the assignment requirements.</li>
-                <li>Include documentation or README if necessary.</li>
-                  <li><strong>Important:</strong> You can submit a maximum of 2 times per assignment.</li>
-              </ul>
-                {submissionCount > 0 && (
-                  <p style={{ marginTop: '0.75rem', color: submissionCount >= 2 ? '#dc2626' : '#64748b', fontWeight: submissionCount >= 2 ? 'bold' : 'normal' }}>
-                    {submissionCount >= 2 
-                      ? '⚠️ Maximum submission limit reached (2/2). You cannot submit again for this assignment.'
-                      : `Submissions used: ${submissionCount}/2`
-                    }
-                  </p>
-                )}
-            </div>
+              {Array.isArray(selectedAssignment.details) && selectedAssignment.details.length > 0 && (
+                <div className="assignment-brief">
+                  <h3>Assignment brief</h3>
+                  <ul>
+                    {selectedAssignment.details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <header>
+                <h2>{selectedAssignment.title}</h2>
+                <p>{selectedAssignment.description}</p>
+              </header>
+              {Array.isArray(selectedAssignment.details) && selectedAssignment.details.length > 0 && (
+                <div className="assignment-brief">
+                  <h3>Assignment brief</h3>
+                  <ul>
+                    {selectedAssignment.details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="submission-guidelines">
+                <h3>Submission guidelines</h3>
+                <ul>
+                  <li>Package your solution in a single ZIP file.</li>
+                  <li>Ensure your main entry point matches the assignment requirements.</li>
+                  <li>Include documentation or README if necessary.</li>
+                    <li><strong>Important:</strong> You can submit a maximum of 2 times per assignment.</li>
+                </ul>
+                  {submissionCount > 0 && (
+                    <p style={{ marginTop: '0.75rem', color: submissionCount >= 2 ? '#dc2626' : '#64748b', fontWeight: submissionCount >= 2 ? 'bold' : 'normal' }}>
+                      {submissionCount >= 2 
+                        ? '⚠️ Maximum submission limit reached (2/2). You cannot submit again for this assignment.'
+                        : `Submissions used: ${submissionCount}/2`
+                      }
+                    </p>
+                  )}
+              </div>
 
-            <form className="upload-form" onSubmit={handleSubmit}>
-              <label className="file-input">
-                <span>{file ? file.name : 'Upload ZIP archive'}</span>
-                <input
-                  type="file"
-                  accept=".zip"
-                  onChange={(event) => setFile(event.target.files[0])}
-                />
-              </label>
-                <PrimaryButton type="submit" disabled={loading || !canSubmit}>
-                  {loading ? 'Submitting…' : canSubmit ? 'Submit assignment' : 'Submission limit reached'}
-              </PrimaryButton>
-            </form>
+              <form className="upload-form" onSubmit={handleSubmit}>
+                <label className="file-input">
+                  <span>{file ? file.name : 'Upload ZIP archive'}</span>
+                  <input
+                    type="file"
+                    accept=".zip"
+                    onChange={(event) => setFile(event.target.files[0])}
+                  />
+                </label>
+                  <PrimaryButton type="submit" disabled={loading || !canSubmit}>
+                    {loading ? 'Submitting…' : canSubmit ? 'Submit assignment' : 'Submission limit reached'}
+                </PrimaryButton>
+              </form>
 
-            {localMessage && (
-              <MessageBanner type={localMessage.type} onClose={() => setLocalMessage(null)}>
-                {localMessage.text}
-              </MessageBanner>
-            )}
-          </>
+              {localMessage && (
+                <MessageBanner type={localMessage.type} onClose={() => setLocalMessage(null)}>
+                  {localMessage.text}
+                </MessageBanner>
+              )}
+            </>
+          )
       ) : (
           <EmptyState
           title="Choose an assignment"
@@ -814,7 +935,6 @@ function AssignmentsSection({
           />
         )}
       </div>
-      )}
       {/* Step 4: Open the required Reflection modal after a successful submission */}
       {pendingReflection && onSubmitReflection && (
         <div className="modal-backdrop" onClick={requestCloseReflection}>
@@ -831,6 +951,7 @@ function AssignmentsSection({
                   await onSubmitReflection({ submissionId: pendingReflection.submissionId, assignmentId: pendingReflection.assignmentId, ...formData });
                   setPendingReflection(null);
                   setShowCloseConfirm(false);
+                  setLocalMessage({ type: 'success', text: 'Submission successful.' });
                 }}
                 onCancel={() => setPendingReflection(null)}
               />
@@ -857,6 +978,16 @@ function AssignmentsSection({
             </div>
           </div>
         </div>
+      )}
+      {showEditAssignmentModal && selectedAssignment && onUpdateAssignment && (
+        <EditAssignmentModal
+          assignment={selectedAssignment}
+          onClose={() => setShowEditAssignmentModal(false)}
+          onSubmit={async (payload) => {
+            await onUpdateAssignment(selectedAssignment.id, payload);
+            setShowEditAssignmentModal(false);
+          }}
+        />
       )}
     </div>
   );
@@ -931,7 +1062,7 @@ function SubmissionsSection({ submissions, assignments, onSubmitReflection }) {
                   <span style={{ color: '#999' }}>—</span>
                 )}
               </span>
-              <span>{submission.filename}</span>
+              <span>{getDisplayFilename(submission.filename)}</span>
             </div>
           ))}
         </div>
@@ -978,7 +1109,7 @@ function SubmissionDetailModal({ submission, assignmentTitle, detailData, loadin
             <>
               <section className="modal-column">
                 <div className="submission-detail-info">
-                  <p><strong>File:</strong> {submission.filename}</p>
+                  <p><strong>File:</strong> {getDisplayFilename(submission.filename)}</p>
                   <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
                   <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
                   {(submission.score !== undefined && submission.score !== null) && (
@@ -1307,7 +1438,12 @@ function ReflectionSummary({ reflection, showTeacherFeedback = false, compact = 
   );
 }
 
-function TeacherSection({ assignments, submissions, reflections = [], onRefreshReflections }) {
+function TeacherSection({
+  assignments,
+  submissions,
+  reflections = [],
+  onRefreshReflections
+}) {
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [detailData, setDetailData] = useState(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
@@ -1394,7 +1530,7 @@ function TeacherSection({ assignments, submissions, reflections = [], onRefreshR
                     <span style={{ color: '#999' }}>—</span>
                   )}
                 </span>
-                <span>{submission.filename}</span>
+                <span>{getDisplayFilename(submission.filename)}</span>
               </div>
             ))}
           </div>
@@ -1412,6 +1548,76 @@ function TeacherSection({ assignments, submissions, reflections = [], onRefreshR
         />
       )}
     </div>
+  );
+}
+
+function EditAssignmentModal({ assignment, onSubmit, onClose }) {
+  const [title, setTitle] = useState(assignment.title || '');
+  const [description, setDescription] = useState(assignment.description || '');
+  const [details, setDetails] = useState(
+    Array.isArray(assignment.details) ? assignment.details.join('\n') : ''
+  );
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSaving(true);
+    try {
+      await onSubmit({
+        title,
+        description,
+        details
+      });
+    } catch (err) {
+      console.error('Failed to update assignment:', err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Modal title="Edit assignment" onClose={onClose}>
+      <form className="modal-form" onSubmit={handleSubmit}>
+        <label>
+          Title
+          <input
+            type="text"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            required
+          />
+        </label>
+
+        <label>
+          Description
+          <input
+            type="text"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            placeholder="Short summary shown to students"
+          />
+        </label>
+
+        <label>
+          Details
+          <textarea
+            rows={4}
+            value={details}
+            onChange={(event) => setDetails(event.target.value)}
+            placeholder="One requirement per line"
+          />
+        </label>
+
+        <div className="modal-actions">
+          <SecondaryButton type="button" onClick={onClose}>
+            Cancel
+          </SecondaryButton>
+          <PrimaryButton type="submit" disabled={saving}>
+            {saving ? 'Saving…' : 'Save changes'}
+          </PrimaryButton>
+        </div>
+      </form>
+    </Modal>
   );
 }
 
@@ -1454,7 +1660,7 @@ function TeacherSubmissionModal({ submission, assignmentTitle, detailData, loadi
               <section className="modal-column">
                 <div className="submission-detail-info">
                   <p><strong>Student:</strong> {submission.userEmail || `User #${submission.userId}`}</p>
-                  <p><strong>File:</strong> {submission.filename}</p>
+                  <p><strong>File:</strong> {getDisplayFilename(submission.filename)}</p>
                   <p><strong>Submitted:</strong> {new Date(submission.createdAt).toLocaleString()}</p>
                   <p><strong>Status:</strong> <StatusPill submission={submission} /></p>
                   {(submission.score !== undefined && submission.score !== null) && (

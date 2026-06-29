@@ -257,6 +257,23 @@ textarea:focus {
   background: rgba(15, 23, 42, 0.12);
 }
 
+.danger-button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(239, 68, 68, 0.12);
+  color: #b91c1c;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.danger-button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
