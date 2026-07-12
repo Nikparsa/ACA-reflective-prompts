@@ -299,6 +299,114 @@
       "email": "w@w.com",
       "password": "1234",
       "role": "teacher"
+    },
+    {
+      "id": 51,
+      "email": "e2e_nav_student_1782744015007@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 52,
+      "email": "e2e_nav_teacher_1782744016966@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 53,
+      "email": "e2e_student_1782744019630@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 54,
+      "email": "e2e_teacher_1782744025655@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 55,
+      "email": "e2e_nav_student_1782744080835@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 56,
+      "email": "e2e_nav_teacher_1782744083017@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 57,
+      "email": "e2e_student_1782744105505@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 58,
+      "email": "e2e_teacher_1782744136156@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 59,
+      "email": "t@t.com",
+      "password": "12345",
+      "role": "teacher"
+    },
+    {
+      "id": 60,
+      "email": "new2teacher@fh.com",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 61,
+      "email": "e2e_nav_student_1782814249883@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 62,
+      "email": "e2e_nav_teacher_1782814252717@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 63,
+      "email": "e2e_student_1782814256825@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 64,
+      "email": "e2e_teacher_1782814264327@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 65,
+      "email": "e2e_nav_student_1782814294170@test.local",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 66,
+      "email": "e2e_nav_teacher_1782814296884@test.local",
+      "password": "123456",
+      "role": "teacher"
+    },
+    {
+      "id": 67,
+      "email": "stu@abc.com",
+      "password": "12345",
+      "role": "student"
+    },
+    {
+      "id": 68,
+      "email": "sahar@abc.com",
+      "password": "12345",
+      "role": "student"
     }
   ],
   "assignments": [
@@ -340,6 +448,18 @@
         "Ensure the class uses standard Python dunder methods so the tests can compare vectors directly."
       ],
       "origin": "builtin"
+    },
+    {
+      "id": 4,
+      "title": "Updated Demo Task",
+      "slug": "demo-2",
+      "description": "Updated description for thesis demo",
+      "details": [
+        "Submit your solution as zip"
+      ],
+      "origin": "custom",
+      "createdBy": 2,
+      "createdAt": "2026-06-29T14:58:48.443Z"
     }
   ],
   "submissions": [
@@ -1191,6 +1311,87 @@
       "status": "completed",
       "createdAt": "2026-06-29T14:20:48.415Z",
       "score": 1
+    },
+    {
+      "id": 101,
+      "userId": 53,
+      "assignmentId": 1,
+      "filename": "1782744021696-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:40:21.701Z",
+      "score": 1
+    },
+    {
+      "id": 102,
+      "userId": 57,
+      "assignmentId": 1,
+      "filename": "1782744107130-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T14:41:47.134Z",
+      "score": 1
+    },
+    {
+      "id": 103,
+      "userId": 21,
+      "assignmentId": 1,
+      "filename": "1782745227602-fizzbuzz_33p.zip",
+      "status": "completed",
+      "createdAt": "2026-06-29T15:00:27.604Z",
+      "score": 0.3333333333333333
+    },
+    {
+      "id": 104,
+      "userId": 63,
+      "assignmentId": 1,
+      "filename": "1782814259219-fizzbuzz_valid.zip",
+      "status": "completed",
+      "createdAt": "2026-06-30T10:10:59.223Z",
+      "score": 1
+    },
+    {
+      "id": 105,
+      "userId": 67,
+      "assignmentId": 1,
+      "filename": "1783782163248-fizzbuzz_noend.zip",
+      "status": "completed",
+      "createdAt": "2026-07-11T15:02:43.255Z",
+      "score": 0
+    },
+    {
+      "id": 106,
+      "userId": 67,
+      "assignmentId": 1,
+      "filename": "1783782389172-fizzbuzz_noend.zip",
+      "status": "completed",
+      "createdAt": "2026-07-11T15:06:29.175Z",
+      "score": 0
+    },
+    {
+      "id": 107,
+      "userId": 68,
+      "assignmentId": 1,
+      "filename": "1783782682161-fizzbuzz_noend.zip",
+      "status": "completed",
+      "createdAt": "2026-07-11T15:11:22.163Z",
+      "score": 0
+    },
+    {
+      "id": 108,
+      "userId": 68,
+      "assignmentId": 1,
+      "filename": "1783782948887-fizzbuzz_noend.zip",
+      "status": "completed",
+      "createdAt": "2026-07-11T15:15:48.892Z",
+      "score": 0
+    },
+    {
+      "id": 109,
+      "userId": 69,
+      "assignmentId": 2,
+      "filename": "1783873166520-csv_25p.zip",
+      "status": "completed",
+      "createdAt": "2026-07-12T16:19:26.533Z",
+      "score": 0.25
     }
   ],
   "results": [
@@ -2057,6 +2258,87 @@
       "passedTests": 6,
       "feedback": "All 6 tests passed!",
       "createdAt": "2026-06-29T14:20:53.099Z"
+    },
+    {
+      "id": 97,
+      "submissionId": 101,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:40:26.585Z"
+    },
+    {
+      "id": 98,
+      "submissionId": 102,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-29T14:41:51.873Z"
+    },
+    {
+      "id": 99,
+      "submissionId": 103,
+      "score": 0.3333333333333333,
+      "totalTests": 6,
+      "passedTests": 2,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: assert 'wrong' == 'Buzz'\n  • tests/test_fizzbuzz.py::test_returns_fizzbuzz: E       AssertionError: assert 'wrong' == 'FizzBuzz'\n  • tests/test_fizzbuzz.py::test_handles_zero: E       AssertionError: assert 'wrong' == '0'",
+      "createdAt": "2026-06-29T15:00:32.653Z"
+    },
+    {
+      "id": 100,
+      "submissionId": 104,
+      "score": 1,
+      "totalTests": 6,
+      "passedTests": 6,
+      "feedback": "All 6 tests passed!",
+      "createdAt": "2026-06-30T10:11:05.597Z"
+    },
+    {
+      "id": 101,
+      "submissionId": 105,
+      "score": 0,
+      "totalTests": 6,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: solution.py not found in submission",
+      "createdAt": "2026-07-11T15:02:49.673Z"
+    },
+    {
+      "id": 102,
+      "submissionId": 106,
+      "score": 0,
+      "totalTests": 6,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: solution.py not found in submission",
+      "createdAt": "2026-07-11T15:06:33.945Z"
+    },
+    {
+      "id": 103,
+      "submissionId": 107,
+      "score": 0,
+      "totalTests": 6,
+      "passedTests": 0,
+      "feedback": "Failed tests:\n  • tests/test_fizzbuzz.py::test_returns_number: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_fizz: E       AssertionError: solution.py not found in submission\n  • tests/test_fizzbuzz.py::test_returns_buzz: E       AssertionError: solution.py not found in submission",
+      "createdAt": "2026-07-11T15:11:26.945Z"
+    },
+    {
+      "id": 104,
+      "submissionId": 108,
+      "score": 0,
+      "totalTests": 0,
+      "passedTests": 0,
+      "feedback": "Test execution timed out after 60 seconds",
+      "createdAt": "2026-07-11T15:16:53.201Z"
+    },
+    {
+      "id": 105,
+      "submissionId": 109,
+      "score": 0.25,
+      "totalTests": 4,
+      "passedTests": 1,
+      "feedback": "Failed tests:\n  • tests/test_csv_stats.py::test_calculate_median: E       AssertionError: assert 999 == 3.0\n  • tests/test_csv_stats.py::test_calculate_std: tests\\test_csv_stats.py:34: AssertionError\n  • tests/test_csv_stats.py::test_empty_data: E       AssertionError: assert 999 == 0",
+      "createdAt": "2026-07-12T16:19:31.406Z"
     }
   ],
   "reflections": [
@@ -2657,6 +2939,132 @@
       "revisionUnderstandText": "",
       "revisionNextIterationText": "",
       "createdAt": "2026-06-29T14:20:51.003Z"
+    },
+    {
+      "id": 34,
+      "submissionId": 101,
+      "assignmentId": 1,
+      "userId": 53,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:40:24.322Z"
+    },
+    {
+      "id": 35,
+      "submissionId": 102,
+      "assignmentId": 1,
+      "userId": 57,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-29T14:41:49.783Z"
+    },
+    {
+      "id": 36,
+      "submissionId": 104,
+      "assignmentId": 1,
+      "userId": 63,
+      "reflectionAttempt": 1,
+      "learnedText": "I learned to prioritize divisibility checks and return consistent string outputs.",
+      "difficultiesText": "I initially handled zero incorrectly and had condition-order bugs.",
+      "wroteCodeMyself": 4,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": 50,
+      "reflectedOnApproach": 4,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-06-30T10:11:02.349Z"
+    },
+    {
+      "id": 37,
+      "submissionId": 106,
+      "assignmentId": 1,
+      "userId": 67,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "ui",
+      "revisionUnderstandText": "io",
+      "revisionNextIterationText": "io",
+      "createdAt": "2026-07-11T15:06:40.797Z"
+    },
+    {
+      "id": 38,
+      "submissionId": 107,
+      "assignmentId": 1,
+      "userId": 68,
+      "reflectionAttempt": 1,
+      "learnedText": "df",
+      "difficultiesText": "d",
+      "wroteCodeMyself": 2,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 3,
+      "ownVsExternalPercent": 39,
+      "reflectedOnApproach": 3,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-07-11T15:11:38.819Z"
+    },
+    {
+      "id": 39,
+      "submissionId": 108,
+      "assignmentId": 1,
+      "userId": 68,
+      "reflectionAttempt": 2,
+      "learnedText": "",
+      "difficultiesText": "",
+      "wroteCodeMyself": null,
+      "aiToolUsage": null,
+      "understoodGeneratedCode": null,
+      "ownVsExternalPercent": null,
+      "reflectedOnApproach": null,
+      "revisionChangeText": "sd",
+      "revisionUnderstandText": "fg",
+      "revisionNextIterationText": "gh",
+      "createdAt": "2026-07-11T15:15:56.809Z"
+    },
+    {
+      "id": 40,
+      "submissionId": 109,
+      "assignmentId": 2,
+      "userId": 69,
+      "reflectionAttempt": 1,
+      "learnedText": "hj",
+      "difficultiesText": "lk",
+      "wroteCodeMyself": 2,
+      "aiToolUsage": "Sometimes",
+      "understoodGeneratedCode": 3,
+      "ownVsExternalPercent": 15,
+      "reflectedOnApproach": 3,
+      "revisionChangeText": "",
+      "revisionUnderstandText": "",
+      "revisionNextIterationText": "",
+      "createdAt": "2026-07-12T16:19:41.960Z"
     }
   ]
 }
